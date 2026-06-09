@@ -1,4 +1,4 @@
-data/*
+data/restaurarte.db
 target/
 .mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
@@ -33,10 +33,7 @@ src/main/resources/application-dev.yaml
 out/
 .gradle
 **/build/
-!**/src/**/build/
 gradle-app.setting
 !gradle-wrapper.jar
 !gradle-wrapper.properties
 .gradletasknamecache
-.project
-.classpath

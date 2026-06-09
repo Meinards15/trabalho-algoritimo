@@ -297,7 +297,7 @@ public class TUI {
         System.out.println("Sobre Nos");
         System.out.println(Utils.dash);
         System.out.println("RestaurARTE - Restaurante em Terminal");
-        System.out.println("Programa desenvolvido em Java 21 & integracao com SQLite");
+        System.out.println("Programa desenvolvido em Java 25 & integracao com SQLite");
         System.out.println("Trabalho A3 - Algoritmos e Programacao FASEH");
         System.out.println(Utils.dash);
         System.out.println("Desenvolvido por:" +
@@ -305,8 +305,7 @@ public class TUI {
                 "\nMiguel Dolabella Miranda" +
                 "\nPedro Henrique Penha Piantino" +
                 "\nCibely Rodrigues de Pontes" +
-                "\nDaniel Camargos da Cunha" +
-                "\nADD NOME 6"
+                "\nDaniel Camargos da Cunha"
         );
         System.out.println(Utils.dash);
         System.out.print("\nPressione qualquer tecla para continuar...");
