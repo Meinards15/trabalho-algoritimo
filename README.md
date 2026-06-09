@@ -1,12 +1,17 @@
-# trabalho-algoritimo
-trabalho da silva 
+# Trabalho A3 - FASEH
+Restaurante em Terminal - RestaurARTE
 
-terminar de documentar ReadMe
+## Trabalho feito por:
+- Ian Fernandes Guimarães
+- Miguel Dolabella Miranda
+-
+-
+-
+-
 
-`data/restaurarte.db`
+Database local automaticamente gerada pos startup: `data/restaurarte.db`
 
-iniciar por `src/main/java/me.faseh.restaurarte.Main`
+Arquivo Main: `src/main/java/me.faseh.restaurarte/Main`
 
-
-
-
+Utilizando o Gradle e possivel executar o programa atraves do terminal, certifique-se que esteja dentro da pasta do projeto e execute o seguinte comando:
+`./gradlew run`
