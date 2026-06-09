@@ -4,7 +4,7 @@ Restaurante em Terminal - RestaurARTE
 ## Trabalho feito por:
 - Ian Fernandes Guimarães
 - Miguel Dolabella Miranda
--
+- Pedro Henrique Penha Piantino
 -
 -
 -

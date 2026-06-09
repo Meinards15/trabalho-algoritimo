@@ -301,21 +301,12 @@ public class TUI {
         System.out.println("Trabalho A3 - Algoritmos e Programacao FASEH");
         System.out.println(Utils.dash);
         System.out.println("Desenvolvido por:" +
-<<<<<<< Updated upstream
-                "Ian Fernandes Guimaraes" +
-                "Miguel Dolabella Miranda" +
-                "Pedro Henrique Penha Piantino" +
-                "ADD NOME 4" +
-                "ADD NOME 5" +
-                "ADD NOME 6"
-=======
                 "\nIan Fernandes Guimaraes" +
                 "\nMiguel Dolabella Miranda" +
-                "\nADD NOME 3" +
+                "\nPedro Henrique Penha Piantino" +
                 "\nADD NOME 4" +
                 "\nADD NOME 5" +
                 "\nADD NOME 6"
->>>>>>> Stashed changes
         );
         System.out.println(Utils.dash);
         System.out.print("\nPressione qualquer tecla para continuar...");
