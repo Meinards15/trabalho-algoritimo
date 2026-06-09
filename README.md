@@ -5,7 +5,7 @@ Restaurante em Terminal - RestaurARTE
 - Ian Fernandes Guimarães
 - Miguel Dolabella Miranda
 - Pedro Henrique Penha Piantino
--
+- Cibely Rodrigues de Pontes
 -
 -
 
