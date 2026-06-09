@@ -303,7 +303,7 @@ public class TUI {
         System.out.println("Desenvolvido por:" +
                 "Ian Fernandes Guimaraes" +
                 "Miguel Dolabella Miranda" +
-                "ADD NOME 3" +
+                "Pedro Henrique Penha Piantino" +
                 "ADD NOME 4" +
                 "ADD NOME 5" +
                 "ADD NOME 6"
