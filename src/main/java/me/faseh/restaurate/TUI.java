@@ -305,7 +305,7 @@ public class TUI {
                 "\nMiguel Dolabella Miranda" +
                 "\nPedro Henrique Penha Piantino" +
                 "\nCibely Rodrigues de Pontes" +
-                "\nADD NOME 5" +
+                "\nDaniel Camargos da Cunha" +
                 "\nADD NOME 6"
         );
         System.out.println(Utils.dash);

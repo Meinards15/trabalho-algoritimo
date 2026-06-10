@@ -6,7 +6,7 @@ Restaurante em Terminal - RestaurARTE
 - Miguel Dolabella Miranda
 - Pedro Henrique Penha Piantino
 - Cibely Rodrigues de Pontes
--
+- Daniel Camargos da Cunha 
 -
 
 Database local automaticamente gerada pos startup: `data/restaurarte.db`
