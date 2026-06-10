@@ -271,7 +271,7 @@ public class TUI {
 
         System.out.println(Utils.dash);
         System.out.println("Avaliacao registrada: " + "*".repeat(nota) + "  (" + nota + "/5)");
-        
+
         if (!comentario.isEmpty()) { System.out.println("Comentario: \"" + comentario + "\""); };
         System.out.println("Obrigado pelo seu feedback!");
     }
