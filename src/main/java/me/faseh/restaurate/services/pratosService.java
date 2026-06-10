@@ -1,6 +1,6 @@
 package me.faseh.restaurate.services;
 
-import me.faseh.restaurate.controller.pratosController;
+import me.faseh.restaurate.controllers.pratosController;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -92,7 +92,7 @@ public class pratosService {
         adicionarPrato("Arroz & File de Tilapia",   38.00, 20);
         adicionarPrato("Macarrao Alho e Oleo", 27.00, 12);
         adicionarPrato("Arroz, Farofa & Picanha",  65.00, 25);
-        adicionarPrato("Salada Ceasar",   18.00,  8);
+        adicionarPrato("Lasnha Bolonhesa",   18.00,  8);
         adicionarPrato("Suco Natural",       9.50,  3);
         adicionarPrato("Refrigerante",       7.00,  2);
         adicionarPrato("Agua Mineral",       4.00,  1);

@@ -1,6 +1,6 @@
 package me.faseh.restaurate.services;
 
-import me.faseh.restaurate.controller.clienteController;
+import me.faseh.restaurate.controllers.clienteController;
 
 import java.sql.*;
 import java.time.LocalDate;

@@ -1,4 +1,4 @@
-package me.faseh.restaurate.controller;
+package me.faseh.restaurate.controllers;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

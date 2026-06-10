@@ -1,6 +1,6 @@
 package me.faseh.restaurate;
 
-import me.faseh.restaurate.controller.*;
+import me.faseh.restaurate.controllers.*;
 import me.faseh.restaurate.services.*;
 
 import java.util.List;
@@ -66,7 +66,7 @@ public class TUI {
             List<pedidoController> abertos = pedidoService.listarPorCliente(clienteAtual.getIdCliente()).stream().filter(p -> p.getDataSaida() == null).toList();
             if (!abertos.isEmpty()) {
                 pedidoAtual = abertos.get(0);
-                System.out.println("Seu Pedido (Pedido #" + pedidoAtual.getIdPedido() + " ainda esta em aberto.");
+                System.out.println("Seu Pedido (Pedido #" + pedidoAtual.getIdPedido() + ") ainda esta em aberto.");
             } else {
                 pedidoAtual = pedidoService.abrirPedido(clienteAtual.getIdCliente());
                 System.out.println("Pedido #" + pedidoAtual.getIdPedido() + " aberto.");
@@ -79,7 +79,7 @@ public class TUI {
             clienteAtual = clienteService.registrarCliente(nome);
             pedidoAtual  = pedidoService.abrirPedido(clienteAtual.getIdCliente());
             System.out.println(Utils.dash);
-            System.out.println("Cadastro realizado. Seja bem vindo, " + clienteAtual.getNomeCliente() + ".");
+            System.out.println("Cadastro realizado. Seja bem vindo(a), " + clienteAtual.getNomeCliente() + "!");
             System.out.println("ID do cliente registrado: #" + clienteAtual.getIdCliente());
             System.out.println("Pedido #" + pedidoAtual.getIdPedido() + " aberto.");
             System.out.print("\nPressione qualquer tecla para continuar...");
@@ -117,8 +117,9 @@ public class TUI {
                         + " prato(s) — " + status
                 );
             });
-            if (todosPedidos.size() > 5)
+            if (todosPedidos.size() > 5) {
                 System.out.println("... e mais " + (todosPedidos.size() - 5) + " pedido(s).");
+            };
         }
     }
 
@@ -126,7 +127,7 @@ public class TUI {
         int opcao;
         do {
             System.out.println("\n" + Utils.equal);
-            System.out.printf("Seja bem vindo, %s.  |  Pedido #%d%n", clienteAtual.getNomeCliente(), pedidoAtual.getIdPedido());
+            System.out.printf("Seja bem vindo(a), %s.  |  Pedido #%d%n", clienteAtual.getNomeCliente(), pedidoAtual.getIdPedido());
             System.out.println(Utils.dash);
             System.out.println("1 - Acessar o Cardapio");
             System.out.println("2 - Ver meu Pedido Atual");
@@ -134,6 +135,7 @@ public class TUI {
             System.out.println("0 - Sair do Restaurante");
             System.out.println(Utils.dash);
             System.out.print("Opcao: ");
+
             opcao = Utils.scnInt(scn);
             switch (opcao) {
                 case 1 -> menuCardapio();
@@ -146,6 +148,7 @@ public class TUI {
                 }
                 default -> System.out.println("Opcao invalida.");
             }
+
         } while (opcao != 0 && clienteAtual != null);
     }
 
@@ -157,6 +160,7 @@ public class TUI {
             System.out.println("0 - Sair do Restaurante");
             System.out.println(Utils.dash);
             System.out.print("Opcao: ");
+
             opcao = Utils.scnInt(scn);
             switch (opcao) {
                 case 1 -> addAvaliacao();
@@ -165,6 +169,7 @@ public class TUI {
                 }
                 default -> System.out.println("Opcao invalida.");
             }
+
         } while (opcao != 0);
     }
 
@@ -178,8 +183,9 @@ public class TUI {
             System.out.println(Utils.dash);
             pratosService.listarTodos().forEach(p -> System.out.println("  " + p));
             System.out.println(Utils.dash);
-            System.out.print("ID do prato para adicionar (0 = voltar): ");
+            System.out.print("Digite o ID do prato para adicionar-lo. (Digite 0 para encerrar o pedido): ");
             opcao = Utils.scnInt(scn);
+
             if (opcao != 0) {
                 Optional<pratosController> prato = pratosService.buscarPorId(opcao);
                 if (prato.isEmpty()) {
@@ -190,6 +196,7 @@ public class TUI {
                     System.out.println("  \"" + prato.get().getNomePrato() + "\" adicionado ao seu pedido!");
                 }
             }
+
         } while (opcao != 0);
     }
 
@@ -199,20 +206,26 @@ public class TUI {
         System.out.println("Meu Pedido  #" + pedidoAtual.getIdPedido());
         System.out.println(Utils.dash);
         List<Integer> ids = pedidoAtual.getIdsPratos();
+
         if (ids.isEmpty()) {
             System.out.println("Nenhum prato adicionado ainda.");
-        } else {
-            double total = 0;
-            for (int idPrato : ids) {
-                Optional<pratosController> p = pratosService.buscarPorId(idPrato);
-                if (p.isPresent()) {
-                    System.out.println("    " + p.get());
-                    total += p.get().getPrecoVal();
-                }
-            }
             System.out.println(Utils.dash);
-            System.out.printf("TOTAL: %s%n", Utils.formPreco(total));
+            System.out.print("\nPressione qualquer tecla para continuar...");
+            scn.nextLine();
+            return;
         }
+
+        double total = 0;
+        for (int idPrato : ids) {
+            Optional<pratosController> p = pratosService.buscarPorId(idPrato);
+            if (p.isPresent()) {
+                System.out.println("    " + p.get());
+                total += p.get().getPrecoVal();
+            }
+        }
+
+        System.out.println(Utils.dash);
+        System.out.printf("TOTAL: %s%n", Utils.formPreco(total));
         System.out.println(Utils.dash);
         System.out.print("\nPressione qualquer tecla para continuar...");
         scn.nextLine();
@@ -220,15 +233,17 @@ public class TUI {
 
     private void endPedido() {
         verPedidoAtual();
-        if (pedidoAtual.getIdsPratos().isEmpty()) {
-            clienteAtual = null;
-            pedidoAtual  = null;
-            addAvaliacao();
+
+        if (pedidoAtual == null || pedidoAtual.getIdsPratos().isEmpty()) {
+            System.out.println("Adicione pelo menos um prato antes de encerrar.");
+            return;
         }
+
         System.out.println("Confirmar pagamento?");
         System.out.println("1 - Sim, pagar e sair");
         System.out.println("0 - Cancelar");
         System.out.print("Opcao: ");
+
         if (Utils.scnInt(scn) == 1) {
             pedidoService.fecharPedido(pedidoAtual.getIdPedido());
             pedidoService.marcarEntregue(pedidoAtual.getIdPedido());
@@ -237,6 +252,7 @@ public class TUI {
             clienteAtual = null;
             pedidoAtual  = null;
         }
+
     }
 
     private void addAvaliacao() {
@@ -248,15 +264,15 @@ public class TUI {
         System.out.println(Utils.dash);
         System.out.print("Sua nota: ");
         int nota = scnNota();
-
         System.out.print("Comentario ( Pressione Enter para deixar comentario em branco ): ");
         String comentario = Utils.scnCom(scn);
 
         avaliacaoService.registrar(clienteAtual.getIdCliente(), clienteAtual.getNomeCliente(), nota, comentario);
 
         System.out.println(Utils.dash);
-        System.out.println("Avaliacao registrada: " + "★".repeat(nota) + "☆".repeat(5 - nota) + "  (" + nota + "/5)");
-        if (!comentario.isEmpty()) System.out.println("Comentario: \"" + comentario + "\"");
+        System.out.println("Avaliacao registrada: " + "*".repeat(nota) + "  (" + nota + "/5)");
+        
+        if (!comentario.isEmpty()) { System.out.println("Comentario: \"" + comentario + "\""); };
         System.out.println("Obrigado pelo seu feedback!");
     }
 
@@ -269,7 +285,7 @@ public class TUI {
         if (media.isPresent()) {
             double m = media.getAsDouble();
             int estrelas = (int) Math.round(m);
-            System.out.printf("Media geral: %s  (%.1f / 5)%n", "★".repeat(estrelas) + "☆".repeat(5 - estrelas), m);
+            System.out.printf("Media geral: %s  (%.1f / 5)%n", "*".repeat(estrelas), m);
         } else {
             System.out.println("Media geral: sem avaliacoes ainda.");
         }
@@ -282,7 +298,7 @@ public class TUI {
         if (lista.isEmpty()) {
             System.out.println("Nenhuma avaliacao encontrada.");
         } else {
-            System.out.printf("  %-20s  %-7s  %-5s  %s%n", "Cliente", "Nota", "Data", "Comentario");
+            System.out.printf("%-20s  %-7s  %-5s  %s%n", "Cliente", "Nota", "Data", "Comentario");
             System.out.println(Utils.dash);
             lista.forEach(a -> System.out.println("  " + a));
         }
