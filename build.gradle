@@ -1,5 +1,7 @@
-apply plugin: 'java'
-apply plugin: 'application'
+plugins {
+    id 'java'
+    id 'application'
+}
 
 group = 'me.faseh.restaurate'
 version = '1.0.0'
@@ -16,11 +18,12 @@ dependencies {
     implementation 'org.xerial:sqlite-jdbc:3.47.1.0'
 }
 
-compileJava {
-    options.compilerArgs << '-source' << '21' << '-target' << '21'
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
 }
 
-// Fat jar: bundle sqlite-jdbc so the app runs standalone
 jar {
     manifest {
         attributes 'Main-Class': 'me.faseh.restaurate.Main'
@@ -29,4 +32,8 @@ jar {
         configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
     }
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
+run {
+    standardInput = System.in
 }

@@ -88,11 +88,11 @@ public class pratosService {
     }
 
     private void semearCardapioPadrao() {
-        adicionarPrato("Frango Grelhado",   32.50, 15);
-        adicionarPrato("File de Tilapia",   38.00, 20);
-        adicionarPrato("Macarrao ao Molho", 27.00, 12);
-        adicionarPrato("Picanha na Brasa",  65.00, 25);
-        adicionarPrato("Salada Tropical",   18.00,  8);
+        adicionarPrato("Arroz, Feijao & Frango Grelhado",   32.50, 15);
+        adicionarPrato("Arroz & File de Tilapia",   38.00, 20);
+        adicionarPrato("Macarrao Alho e Oleo", 27.00, 12);
+        adicionarPrato("Arroz, Farofa & Picanha",  65.00, 25);
+        adicionarPrato("Salada Ceasar",   18.00,  8);
         adicionarPrato("Suco Natural",       9.50,  3);
         adicionarPrato("Refrigerante",       7.00,  2);
         adicionarPrato("Agua Mineral",       4.00,  1);

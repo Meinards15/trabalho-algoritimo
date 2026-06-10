@@ -11,7 +11,7 @@ Restaurante em Terminal - RestaurARTE
 
 Database local automaticamente gerada pos Startup: `data/restaurarte.db`
 
-Arquivo Main: `src/main/java/me.faseh.restaurarte/Main`
+Arquivo Main: `src/main/java/me.faseh.restaurarte/Main.java`
 
 Utilizando o Gradle e possivel executar o programa atraves do terminal, certifique-se que esteja dentro da pasta do projeto e execute o seguinte comando:
 `./gradlew run`

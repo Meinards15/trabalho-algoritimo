@@ -233,9 +233,9 @@ public class TUI {
             pedidoService.fecharPedido(pedidoAtual.getIdPedido());
             pedidoService.marcarEntregue(pedidoAtual.getIdPedido());
             System.out.println("\nPedido encerrado. Agradecemos sua escolha, " + clienteAtual.getNomeCliente() + "!");
+            addAvaliacao();
             clienteAtual = null;
             pedidoAtual  = null;
-            addAvaliacao();
         }
     }
 
@@ -250,7 +250,7 @@ public class TUI {
         int nota = scnNota();
 
         System.out.print("Comentario ( Pressione Enter para deixar comentario em branco ): ");
-        String comentario = scn.nextLine().trim();
+        String comentario = Utils.scnCom(scn);
 
         avaliacaoService.registrar(clienteAtual.getIdCliente(), clienteAtual.getNomeCliente(), nota, comentario);
 

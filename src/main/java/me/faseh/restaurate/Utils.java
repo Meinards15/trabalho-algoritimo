@@ -1,5 +1,6 @@
 package me.faseh.restaurate;
 
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class Utils {
@@ -48,4 +49,14 @@ public class Utils {
     public static String formPreco(double preco) {
         return String.format("R$ %.2f", preco).replace(".", ",");
     }
+
+    public static String scnCom(Scanner scanner) {
+        try {
+            String input = scanner.nextLine();
+            return (input == null) ? "" : input.trim();
+        } catch (NoSuchElementException e) {
+            return "";
+        }
+    }
+
 }
