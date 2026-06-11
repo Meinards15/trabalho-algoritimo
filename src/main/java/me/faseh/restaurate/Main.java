@@ -1,5 +1,7 @@
 package me.faseh.restaurate;
 
+import me.faseh.restaurate.TUI;
+
 public class Main {
 
     // funcao compactando classe grafica interacao funcionalidade tudo tudinho
