@@ -8,3 +8,6 @@ public class Main {
         restaurARTE.menuPrincipal();
     }
 }
+
+//pedidoService.fecharPedido(pedidoAtual.getIdPedido());
+//pedidoService.adicionarPrato(pedidoAtual.getIdPedido(), opcao);

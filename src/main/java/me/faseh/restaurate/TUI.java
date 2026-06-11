@@ -201,34 +201,47 @@ public class TUI {
     }
 
     private void verPedidoAtual() {
-        pedidoAtual = pedidoService.buscarPorId(pedidoAtual.getIdPedido()).orElse(pedidoAtual);
-        System.out.println("\n" + Utils.equal);
-        System.out.println("Meu Pedido  #" + pedidoAtual.getIdPedido());
-        System.out.println(Utils.dash);
-        List<Integer> ids = pedidoAtual.getIdsPratos();
+        int opcao;
+        do {
+            pedidoAtual = pedidoService.buscarPorId(pedidoAtual.getIdPedido()).orElse(pedidoAtual);
+            System.out.println("\n" + Utils.equal);
+            System.out.println("Meu Pedido  #" + pedidoAtual.getIdPedido());
+            System.out.println(Utils.dash);
+            List<Integer> ids = pedidoAtual.getIdsPratos();
 
-        if (ids.isEmpty()) {
-            System.out.println("Nenhum prato adicionado ainda.");
+            if (ids.isEmpty()) {
+                System.out.println("Nenhum prato adicionado ainda.");
+            } else {
+                double total = 0;
+                for (int idPrato : ids) {
+                    Optional<pratosController> p = pratosService.buscarPorId(idPrato);
+                    if (p.isPresent()) {
+                        System.out.println("    " + p.get());
+                        total += p.get().getPrecoVal();
+                    }
+                }
+                System.out.printf("TOTAL: %s%n", Utils.formPreco(total));
+                return;
+            }
+
+
             System.out.println(Utils.dash);
             System.out.print("\nPressione qualquer tecla para continuar...");
             scn.nextLine();
-            return;
-        }
 
-        double total = 0;
-        for (int idPrato : ids) {
-            Optional<pratosController> p = pratosService.buscarPorId(idPrato);
-            if (p.isPresent()) {
-                System.out.println("    " + p.get());
-                total += p.get().getPrecoVal();
+            opcao = Utils.scnInt(scn);
+            switch (opcao) {
+                case 1 -> addAvaliacao();
+                case 0 -> {
+                    System.out.println("Agradecemos sua escolha.");
+                }
+                default -> System.out.println("Opcao invalida.");
             }
-        }
 
-        System.out.println(Utils.dash);
-        System.out.printf("TOTAL: %s%n", Utils.formPreco(total));
-        System.out.println(Utils.dash);
-        System.out.print("\nPressione qualquer tecla para continuar...");
-        scn.nextLine();
+        } while (opcao != 0);
+
+
+
     }
 
     private void endPedido() {
@@ -321,7 +334,8 @@ public class TUI {
                 "\nMiguel Dolabella Miranda" +
                 "\nPedro Henrique Penha Piantino" +
                 "\nCibely Rodrigues de Pontes" +
-                "\nDaniel Camargos da Cunha"
+                "\nDaniel Camargos da Cunha" +
+                "\nVitor Ribeiro Dalmazio Machado"
         );
         System.out.println(Utils.dash);
         System.out.print("\nPressione qualquer tecla para continuar...");
