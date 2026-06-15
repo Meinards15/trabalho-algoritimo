@@ -13,7 +13,7 @@ public class avaliacaoService {
     private final Connection con;
 
     public avaliacaoService() {
-        this.con = dbService.getInstance().getCon();
+        this.con = databaseService.getInstance().getCon();
     }
 
     public avaliacaoController registrar(int idCliente, String nomeCliente, int nota, String comentario) {

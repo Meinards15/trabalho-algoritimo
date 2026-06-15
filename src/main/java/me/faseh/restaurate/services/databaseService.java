@@ -3,13 +3,13 @@ package me.faseh.restaurate.services;
 import java.nio.file.*;
 import java.sql.*;
 
-public class dbService {
+public class databaseService {
 
     private static final String DB_PATH = "data/restaurarte.db";
-    private static dbService instance;
+    private static databaseService instance;
     private final Connection con;
 
-    private dbService() {
+    private databaseService() {
         try {
             Files.createDirectories(Paths.get("data"));
             con = DriverManager.getConnection("jdbc:sqlite:" + DB_PATH);
@@ -20,8 +20,8 @@ public class dbService {
         }
     }
 
-    public static dbService getInstance() {
-        if (instance == null) instance = new dbService();
+    public static databaseService getInstance() {
+        if (instance == null) instance = new databaseService();
         return instance;
     }
 

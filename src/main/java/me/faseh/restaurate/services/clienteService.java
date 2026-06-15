@@ -13,7 +13,7 @@ public class clienteService {
     private final Connection con;
 
     public clienteService() {
-        this.con = dbService.getInstance().getCon();
+        this.con = databaseService.getInstance().getCon();
     }
 
     public clienteController registrarCliente(String nome) {

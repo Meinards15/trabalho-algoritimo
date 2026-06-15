@@ -13,7 +13,7 @@ public class pedidoService {
     private final Connection con;
 
     public pedidoService() {
-        this.con = dbService.getInstance().getCon();
+        this.con = databaseService.getInstance().getCon();
     }
 
     public pedidoController abrirPedido(int idCliente) {

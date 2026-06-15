@@ -10,10 +10,10 @@ import java.util.Optional;
 public class pratosService {
 
     private final Connection con;
-    private final dbService db;
+    private final databaseService db;
 
     public pratosService() {
-        this.db   = dbService.getInstance();
+        this.db   = databaseService.getInstance();
         this.con = db.getCon();
 
         if (db.delTable("pratos")) {
