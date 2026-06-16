@@ -18,7 +18,7 @@ public class TUI {
     private final avaliacaoService avaliacaoService = new avaliacaoService();
 
     private clienteController clienteAtual = null;
-    private pedidoController pedidoAtual  = null;
+    private pedidoController pedidoAtual = null;
 
     public void menuPrincipal() {
         int opcao;
@@ -142,8 +142,6 @@ public class TUI {
                 case 2 -> verPedidoAtual();
                 case 3 -> endPedido();
                 case 0 -> {
-                    clienteAtual = null;
-                    pedidoAtual  = null;
                     requestAvaliacao();
                 }
                 default -> System.out.println("Opcao invalida.");
@@ -240,11 +238,10 @@ public class TUI {
                 System.out.println("Prato removido do pedido!");
             }
         }
+
     }
 
     private void endPedido() {
-        verPedidoAtual();
-
         if (pedidoAtual == null || pedidoAtual.getIdsPratos().isEmpty()) {
             System.out.println("Adicione pelo menos um prato antes de encerrar.");
             return;
@@ -260,8 +257,6 @@ public class TUI {
             pedidoService.marcarEntregue(pedidoAtual.getIdPedido());
             System.out.println("\nPedido encerrado. Agradecemos sua escolha, " + clienteAtual.getNomeCliente() + "!");
             addAvaliacao();
-            clienteAtual = null;
-            pedidoAtual  = null;
         }
 
     }
