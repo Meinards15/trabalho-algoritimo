@@ -29,7 +29,7 @@ public class pedidoService {
             return new pedidoController(id, idCliente, agora);
 
         } catch (SQLException e) {
-            throw new RuntimeException("Erro ao abrir pedido: " + e.getMessage(), e);
+            throw new RuntimeException("Erro ao abrir pedido, " + e.getMessage(), e);
         }
     }
 
@@ -48,7 +48,44 @@ public class pedidoService {
             ps.executeUpdate();
             return true;
         } catch (SQLException e) {
-            throw new RuntimeException("Erro ao adicionar prato ao pedido: " + e.getMessage(), e);
+            throw new RuntimeException("Erro ao adicionar prato ao pedido, " + e.getMessage(), e);
+        }
+    }
+
+    public boolean removerPrato(int idPedido, int posicao) {
+        String sql = "DELETE FROM pedido_pratos WHERE id_pedido = ? AND posicao = ?";
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setInt(1, idPedido);
+            ps.setInt(2, posicao);
+            boolean removido = ps.executeUpdate() > 0;
+            if (removido) {
+                reordenarPosicoes(idPedido);
+            }
+            return removido;
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao remover prato por posicao: " + e.getMessage(), e);
+        }
+    }
+
+    private void reordenarPosicoes(int idPedido) {
+        String selectSql = "SELECT rowid FROM pedido_pratos WHERE id_pedido = ? ORDER BY posicao";
+        String updateSql = "UPDATE pedido_pratos SET posicao = ? WHERE rowid = ?";
+
+        try (PreparedStatement select = con.prepareStatement(selectSql)) {
+            select.setInt(1, idPedido);
+            ResultSet rs = select.executeQuery();
+
+            int novaPosicao = 1;
+            try (PreparedStatement update = con.prepareStatement(updateSql)) {
+                while (rs.next()) {
+                    update.setInt(1, novaPosicao);
+                    update.setLong(2, rs.getLong("rowid"));
+                    update.executeUpdate();
+                    novaPosicao++;
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao reordenar posicoes, " + e.getMessage(), e);
         }
     }
 
@@ -59,7 +96,7 @@ public class pedidoService {
             ps.setInt(2, idPedido);
             return ps.executeUpdate() > 0;
         } catch (SQLException e) {
-            throw new RuntimeException("Erro ao fechar pedido: " + e.getMessage(), e);
+            throw new RuntimeException("Erro ao fechar pedido, " + e.getMessage(), e);
         }
     }
 
@@ -69,7 +106,7 @@ public class pedidoService {
             ps.setInt(1, idPedido);
             return ps.executeUpdate() > 0;
         } catch (SQLException e) {
-            throw new RuntimeException("Erro ao marcar pedido como entregue: " + e.getMessage(), e);
+            throw new RuntimeException("Erro ao marcar pedido como entregue, " + e.getMessage(), e);
         }
     }
 
@@ -85,7 +122,7 @@ public class pedidoService {
                 return Optional.of(p);
             }
         } catch (SQLException e) {
-            throw new RuntimeException("Erro ao buscar pedido: " + e.getMessage(), e);
+            throw new RuntimeException("Erro ao buscar pedido, " + e.getMessage(), e);
         }
 
         return Optional.empty();
@@ -114,7 +151,7 @@ public class pedidoService {
                 lista.add(p);
             }
         } catch (SQLException e) {
-            throw new RuntimeException("Erro ao listar pedidos do cliente: " + e.getMessage(), e);
+            throw new RuntimeException("Erro ao listar pedidos do cliente, " + e.getMessage(), e);
         }
 
         return lista;
@@ -129,7 +166,7 @@ public class pedidoService {
                 lista.add(p);
             }
         } catch (SQLException e) {
-            throw new RuntimeException("Erro ao listar pedidos: " + e.getMessage(), e);
+            throw new RuntimeException("Erro ao listar pedidos, " + e.getMessage(), e);
         }
         return lista;
     }

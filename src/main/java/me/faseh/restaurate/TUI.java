@@ -201,47 +201,45 @@ public class TUI {
     }
 
     private void verPedidoAtual() {
-        int opcao;
-        do {
-            pedidoAtual = pedidoService.buscarPorId(pedidoAtual.getIdPedido()).orElse(pedidoAtual);
-            System.out.println("\n" + Utils.equal);
-            System.out.println("Meu Pedido  #" + pedidoAtual.getIdPedido());
-            System.out.println(Utils.dash);
-            List<Integer> ids = pedidoAtual.getIdsPratos();
+        pedidoAtual = pedidoService.buscarPorId(pedidoAtual.getIdPedido()).orElse(pedidoAtual);
+        System.out.println("\n" + Utils.equal);
+        System.out.println("Meu Pedido  #" + pedidoAtual.getIdPedido());
+        System.out.println(Utils.dash);
+        List<Integer> ids = pedidoAtual.getIdsPratos();
 
-            if (ids.isEmpty()) {
-                System.out.println("Nenhum prato adicionado ainda.");
-            } else {
-                double total = 0;
-                for (int idPrato : ids) {
-                    Optional<pratosController> p = pratosService.buscarPorId(idPrato);
-                    if (p.isPresent()) {
-                        System.out.println("    " + p.get());
-                        total += p.get().getPrecoVal();
-                    }
-                }
-                System.out.printf("TOTAL: %s%n", Utils.formPreco(total));
-                return;
-            }
-
-
+        if (ids.isEmpty()) {
+            System.out.println("Nenhum prato adicionado ainda.");
             System.out.println(Utils.dash);
             System.out.print("\nPressione qualquer tecla para continuar...");
             scn.nextLine();
+            return;
+        }
 
-            opcao = Utils.scnInt(scn);
-            switch (opcao) {
-                case 1 -> addAvaliacao();
-                case 0 -> {
-                    System.out.println("Agradecemos sua escolha.");
-                }
-                default -> System.out.println("Opcao invalida.");
+        double total = 0;
+        for (int i = 0; i < ids.size(); i++) {
+            int idPrato = ids.get(i);
+            Optional<pratosController> p = pratosService.buscarPorId(idPrato);
+            if (p.isPresent()) {
+                System.out.printf("[%d] %s%n", i + 1, p.get().toStringSemId());
+                total += p.get().getPrecoVal();
             }
+        }
+        System.out.println(Utils.dash);
+        System.out.printf("TOTAL: %s%n", Utils.formPreco(total));
+        System.out.println(Utils.dash);
 
-        } while (opcao != 0);
+        System.out.print("Digite o numero do item para remover-lo (Digite 0 para retornar ao menu): ");
+        int posPrato = Utils.scnInt(scn);
 
-
-
+        if (posPrato != 0) {
+            if (posPrato < 1 || posPrato > ids.size()) {
+                System.out.println("Posicao invalida.");
+            } else {
+                pedidoService.removerPrato(pedidoAtual.getIdPedido(), posPrato);
+                pedidoAtual = pedidoService.buscarPorId(pedidoAtual.getIdPedido()).orElse(pedidoAtual);
+                System.out.println("Prato removido do pedido!");
+            }
+        }
     }
 
     private void endPedido() {

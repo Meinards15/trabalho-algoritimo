@@ -23,4 +23,8 @@ public class pratosController {
     public String toString() {
         return String.format("[%d] %-30s R$ %6.2f  ~%d min", idPrato, nomePrato, precoVal, dataMin);
     }
+
+    public String toStringSemId() {
+        return String.format("%-30s  R$ %6.2f  ~%d min", getNomePrato(), getPrecoVal(), getTempo());
+    }
 }
